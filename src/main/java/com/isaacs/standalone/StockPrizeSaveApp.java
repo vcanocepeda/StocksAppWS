@@ -1,68 +1,64 @@
 package com.isaacs.standalone;
 
-import com.isaacs.dao.impl.*;
-import com.isaacs.model.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 
-//import javax.persistence.PersistenceUnit;
-//import org.eclipse.persistence.config.PersistenceUnitProperties;
-//import org.apache.openjpa.persistence.PersistenceProviderImpl;
-//import oracle.toplink.essentials.ejb.cmp3.EntityManager;
+import com.isaacs.dao.*;
+import com.isaacs.model.*;
+import com.isaacs.webservices.impl.StocksWebServiceRestImpl;
 
 public class StockPrizeSaveApp {
 
-	// @PersistenceUnit(unitName = "stocksApp")
-	//private EntityManagerFactory factory;
+	private StockDao stockDao;
+	private MarketDao marketDao;
 
-	public static void main(String... args) {
-		StockPrizeSaveApp app = new StockPrizeSaveApp();
-		app.createMarket();
+	public StockPrizeSaveApp() {
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(
+				SpringConfig.class);
 
+		setStockDao(ctx.getBean(StockDao.class));
+		setMarketDao(ctx.getBean(MarketDao.class));
+
+		JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
+		sf.setResourceClasses(StocksWebServiceRestImpl.class);
+		sf.setAddress("http://localhost:9000/");
+		sf.create();
 	}
 
-	private void createMarket() {
-		// props.put(PersistenceUnitProperties.JDBC_USER, "user-name");
-		// props.put(PersistenceUnitProperties.JDBC_PASSWORD, "password");
-		StockDaoJPAImpl stockDao = new StockDaoJPAImpl();
-		MarketDaoJPAImpl marketDao = new MarketDaoJPAImpl();
-		
+	public void createMarket() {
+
 		Market market = new Market();
 		market = marketDao.findByMarketCode("IBEX35");
-		
+
 		Stock stock = new Stock();
 		stock.setCode("REP");
 		stock.setName("REPSOL");
 		stock.setMarket(market);
 		stockDao.save(stock);
-		
+
 		stock.setCode("REP2");
 		stock.setName("REPSOL2");
 		stockDao.update(stock, "REP");
-		
+
 		stockDao.delete(stock);
-		
-	    stockDao.CloseEntityManager();
-		
-/*		try {
-			EntityManagerFactory emf = Persistence
-					.createEntityManagerFactory("stocksApp");
 
-			EntityManager entityManager = emf.createEntityManager();
-			entityManager.getTransaction().begin();
+		stockDao.CloseEntityManager();
+	}
 
-			Market market = new Market();
-			market.setCode("IBEX35");
-			market.setCity("Madrid");
-			entityManager.persist(market);
-			Stock stock = new Stock();
-			stock.setCode("REP");
-			stock.setName("REPSOL");
-			stock.setMarket(market);
-			entityManager.persist(stock);
-			entityManager.getTransaction().commit();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */
+	public StockDao getStockDao() {
+		return stockDao;
+	}
+
+	public void setStockDao(StockDao stockDao) {
+		this.stockDao = stockDao;
+	}
+
+	public MarketDao getMarketDao() {
+		return marketDao;
+	}
+
+	public void setMarketDao(MarketDao marketDao) {
+		this.marketDao = marketDao;
 	}
 }
-

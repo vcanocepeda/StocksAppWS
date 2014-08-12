@@ -12,4 +12,6 @@ public abstract interface PriceDao {
 	public abstract Price findByPriceId(Integer id);
 
 //	public abstract List<Stock> getStockList();
+	
+	public abstract void CloseEntityManager();
 }

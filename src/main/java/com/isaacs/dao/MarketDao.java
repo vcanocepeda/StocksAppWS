@@ -14,4 +14,6 @@ public abstract interface MarketDao
   public abstract Market findByMarketCode(String paramString);
   
   public abstract List<Market> getMarketList();
+  
+  public abstract void CloseEntityManager();
 }

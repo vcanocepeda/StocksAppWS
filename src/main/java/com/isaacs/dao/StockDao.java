@@ -14,4 +14,6 @@ public abstract interface StockDao
   public abstract Stock findByStockCode(String code);
   
   public abstract List<Stock> getStockList();
+  
+  public abstract void CloseEntityManager();
 }
