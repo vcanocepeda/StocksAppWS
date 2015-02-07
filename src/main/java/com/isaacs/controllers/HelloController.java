@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 import javax.annotation.Resource;
@@ -21,7 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 
 import com.isaacs.dao.MarketDao;
-import com.isaacs.dao.impl.MarketDaoJPAImpl;
 import com.isaacs.model.Market;
 import com.isaacs.services.MarketService;
 
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HelloController {
 	
 	@Autowired
-	private MarketDao marketDaoJPAImpl;
+	private MarketDao MarketDaoELImpl;
 	
 	private MarketService marketService;
     
@@ -48,9 +48,10 @@ public class HelloController {
  
 		model.addAttribute("message", "Spring 3 MVC Hello World");
 		
-//		MarketDao marketDao = this.marketDaoJPAImpl;
-		MarketDaoJPAImpl marketDao = (MarketDaoJPAImpl) this.marketDaoJPAImpl;		
-		Market market = this.marketDaoJPAImpl.findByMarketCode("NYSE");
+		MarketDao marketDao = (MarketDao) this.MarketDaoELImpl;		
+		Market market = MarketDaoELImpl.find(1);
+		Market market2 = MarketDaoELImpl.findByCode("NYSE");
+		List<Market> list = MarketDaoELImpl.list();
 		
 		return "hello2";
 	}

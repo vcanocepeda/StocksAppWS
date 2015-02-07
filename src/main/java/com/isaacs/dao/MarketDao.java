@@ -1,19 +1,18 @@
 package com.isaacs.dao;
 
 import com.isaacs.model.Market;
+
 import java.util.List;
 
-public abstract interface MarketDao
+public interface MarketDao extends GenericDao<Market, Integer>
 {
-  public abstract String save(Market paramMarket);
+	 /* It is just for new method implementation
+	  * Tries to remove employee from the system.
+      * @param employee Employee to remove
+      * @return {@code true} if employee is not assigned to any task
+      * or timesheet. Else {@code false}.
+     */
+ //   boolean removeMarket(Market market);
+	  Market findByCode(String code);
   
-  public abstract String update(Market paramMarket);
-  
-  public abstract String delete(Market paramMarket);
-  
-  public abstract Market findByMarketCode(String paramString);
-  
-  public abstract List<Market> getMarketList();
-  
-  public abstract void CloseEntityManager();
 }

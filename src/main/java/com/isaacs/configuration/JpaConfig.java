@@ -2,6 +2,7 @@ package com.isaacs.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect;
@@ -39,10 +41,11 @@ public class JpaConfig {
       return ds;
   }
   
+  /* Maybe we could delete it */
   @Bean
   public EclipseLinkJpaDialect eclipseLinkJpaDialect() {
      return new EclipseLinkJpaDialect();
-  }
+  } 
   
   @Bean
   public EntityManagerFactory entityManagerFactory() {
@@ -62,7 +65,22 @@ public class JpaConfig {
       factory.setJpaDialect(new EclipseLinkJpaDialect());
       factory.afterPropertiesSet();
       return factory.getObject();
-  } 
+  }
+  
+/*
+ * Just for hibernate
+  @Bean
+  public AnnotationSessionFactoryBean sessionFactory() {
+	  AnnotationSessionFactoryBean sessionFactory = new AnnotationSessionFactoryBean();
+	  sessionFactory.setPackagesToScan("com.isaacs.model");
+	  sessionFactory.setDataSource(DataSource());
+	  Properties hibernateProperties = new Properties();
+      hibernateProperties.put("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect");
+      hibernateProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+      sessionFactory.setHibernateProperties(hibernateProperties);
+	  return sessionFactory;
+  }
+ */
 
   
   @Bean
