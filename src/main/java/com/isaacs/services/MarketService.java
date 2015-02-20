@@ -1,20 +1,8 @@
 package com.isaacs.services;
  
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.isaacs.model.Market;
  
-import com.isaacs.dao.MarketDao;;
- 
-@Component
-public class MarketService 
+public interface MarketService extends GenericService<Market, Integer>
 {
-	//@Autowired
-	protected MarketDao marketDAO;
- 
-	@Override
-	public String toString() {
-		return "MarketService [marketDAO=" + marketDAO + "]";
-	}
+	public Market findByCode(String code);
 }
-
-//Usually in spring we have another layer on top of DAO called Service3

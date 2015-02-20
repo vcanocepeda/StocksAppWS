@@ -4,11 +4,11 @@ import com.isaacs.dao.MarketDao;
 import com.isaacs.model.Market;
 
 import org.springframework.stereotype.Repository;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.NoResultException;
 
-//@Service
 @Repository("MarketDaoELImpl")
 public class MarketDaoELImpl extends GenericDaoELImpl<Market, Integer>  implements MarketDao {
 
@@ -19,6 +19,7 @@ public class MarketDaoELImpl extends GenericDaoELImpl<Market, Integer>  implemen
 
 
 	public MarketDaoELImpl() {
+		super();
 	}
 	
 	@PostConstruct

@@ -6,6 +6,7 @@ import org.junit.Assert;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import com.isaacs.dao.MarketDao;
 import com.isaacs.dao.impl.*;
 import com.isaacs.model.*;
 import com.isaacs.standalone.App;
@@ -15,7 +16,7 @@ import com.isaacs.standalone.App;
  */
 public class AppTest extends TestCase {
 	private StockDaoJPAImpl stockDao;
-	private MarketDaoJPAImpl marketDao;
+	private MarketDao marketDao;
 	private PriceDaoJPAImpl priceDao;
 
 	/**
@@ -27,7 +28,7 @@ public class AppTest extends TestCase {
 	public AppTest(String testName) {
 		super(testName);
 		stockDao = new StockDaoJPAImpl();
-		marketDao = new MarketDaoJPAImpl();
+		marketDao = new MarketDaoELImpl();
 		priceDao = new PriceDaoJPAImpl();
 	}
 
@@ -42,7 +43,7 @@ public class AppTest extends TestCase {
 	public void testStockCRUD() {
 
 		Market market = new Market();
-		market = marketDao.findByMarketCode("IBEX35");
+		market = marketDao.find(1);
 
 		Stock stock = new Stock();
 		stock.setCode("REP");

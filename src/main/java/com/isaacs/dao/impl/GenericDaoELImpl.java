@@ -9,8 +9,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -27,7 +25,7 @@ public abstract class GenericDaoELImpl<E, K extends Serializable> implements Gen
 	public GenericDaoELImpl() {
 		daoType = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass())
                 .getActualTypeArguments()[0];
-		Logger.getLogger(daoType);
+		logger = Logger.getLogger(daoType);
 	}
     
     public abstract void CreateEntityManager();
