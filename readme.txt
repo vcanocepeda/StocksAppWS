@@ -1,3 +1,6 @@
+This is actually a webapp for Spring. Very Important to know Spring
+scalable code
+
 I have to develop two roles Admin and User
 
 Admin Add Stocks and Markets
