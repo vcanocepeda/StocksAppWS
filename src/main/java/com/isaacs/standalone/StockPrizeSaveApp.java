@@ -5,7 +5,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 
 import com.isaacs.dao.*;
-import com.isaacs.model.*;
 import com.isaacs.configuration.*;
 import com.isaacs.webservices.impl.StocksWebServiceRestImpl;
 

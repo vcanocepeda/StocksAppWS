@@ -9,6 +9,6 @@
   <body>  
     <h2>Spring3MVC with Hibernate3 CRUD Example using Annotations</h2>  
     <h2>1. <a href="/listMarkets">List of Markets</a></h2>
-    <h2>1. <a href="./helloworld.html">List of Markets</a></h2>   
+    <h2>1. <a href="./helloworld.html">List of Markets2</a></h2>   
   </body>  
 </html>  

@@ -2,8 +2,8 @@ package com.isaacs.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect;
@@ -28,11 +27,12 @@ public class JpaConfig {
   
   @Bean
   public DataSource DataSource()  {
-	  InitialContext ic = null;
+	//  InitialContext ic = null;
 	  DataSource ds = null;
 	try {
-		ic = new InitialContext();
-		ds = (DataSource)ic.lookup("jdbc/MysqlDS");
+		Context initCtx = new InitialContext();
+		Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		ds = (DataSource)envCtx.lookup("jdbc/MysqlDS");
 	} catch (NamingException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -41,11 +41,11 @@ public class JpaConfig {
       return ds;
   }
   
-  /* Maybe we could delete it */
+  /* Maybe we could delete it 
   @Bean
   public EclipseLinkJpaDialect eclipseLinkJpaDialect() {
      return new EclipseLinkJpaDialect();
-  } 
+  } */
   
   @Bean
   public EntityManagerFactory entityManagerFactory() {
@@ -66,27 +66,28 @@ public class JpaConfig {
       factory.afterPropertiesSet();
       return factory.getObject();
   }
-  
-/*
- * Just for hibernate
-  @Bean
-  public AnnotationSessionFactoryBean sessionFactory() {
-	  AnnotationSessionFactoryBean sessionFactory = new AnnotationSessionFactoryBean();
-	  sessionFactory.setPackagesToScan("com.isaacs.model");
-	  sessionFactory.setDataSource(DataSource());
-	  Properties hibernateProperties = new Properties();
-      hibernateProperties.put("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect");
-      hibernateProperties.put("hibernate.hbm2ddl.auto", "create-drop");
-      sessionFactory.setHibernateProperties(hibernateProperties);
-	  return sessionFactory;
-  }
- */
-
-  
+   
   @Bean
   public PlatformTransactionManager transactionManager() {
       JpaTransactionManager txManager = new JpaTransactionManager();
       txManager.setEntityManagerFactory(entityManagerFactory());
       return txManager;
-  } 
+  }
+  
+  /*
+   * Just for hibernate
+    @Bean
+    public AnnotationSessionFactoryBean sessionFactory() {
+  	  AnnotationSessionFactoryBean sessionFactory = new AnnotationSessionFactoryBean();
+  	  sessionFactory.setPackagesToScan("com.isaacs.model");
+  	  sessionFactory.setDataSource(DataSource());
+  	  Properties hibernateProperties = new Properties();
+        hibernateProperties.put("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect");
+        hibernateProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+        sessionFactory.setHibernateProperties(hibernateProperties);
+  	  return sessionFactory;
+    }
+
+  or you can place this in web.xml
+   */
 }
