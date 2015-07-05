@@ -42,3 +42,8 @@ attribute explicitly, as in the preceding example.
 The @EnableTransactionManagement annotation provides equivalent support if you are 
 using Java based configuration. Simply add the annotation to a @Configuration class.
  See the javadocs for full details.
+ 
+ For JNDI
+asadmin list-jndi-entries --context jdbc  
+https://computingat40s.wordpress.com/how-to-setup-a-jdbc-connection-in-glassfish/
+Persistence

@@ -10,9 +10,10 @@
   <title>Spring MVC Form Handling</title>  
  </head>  
  <body>  
-  <h2>Add Market Data</h2>     
+  <h2>Create Market</h2>     
   
-  <sf:form method="POST" modelAttribute="market" cssClass="personForm">
+  <sf:form method="POST" modelAttribute="market" cssClass="personForm" 
+  action="${pageContext.request.contextPath}/addMarket">
 	<table>   
 	   <tr>  
            <td><sf:label path="id">Market ID:</sf:label></td>  

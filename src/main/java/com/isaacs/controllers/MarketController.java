@@ -24,15 +24,35 @@ public class MarketController {
     
 
 	@RequestMapping(value="/listMarkets", method = RequestMethod.GET)
-	public String listMarkets(ModelMap model) {
-		
-//		MarketService marketService = (MarketService)MarketServiceELImpl;		
-//		Market market = MarketServiceELImpl.find(1);
-//		Market market2 = MarketServiceELImpl.findByCode("NYSE");
-		List<Market> list = MarketServiceELImpl.list();
-	 
-		model.addAttribute("markets", list);
-		
+	public String listMarkets(ModelMap model) {		
+		List<Market> list = MarketServiceELImpl.list();	 
+		model.addAttribute("markets", list);		
+		return "marketList";
+	}
+	
+	@RequestMapping(value="/createMarket", method = RequestMethod.GET)
+	public String createMarket(ModelMap model) {	
+		//Neither BindingResult nor plain target object for bean name 'market' available as request attribute
+		model.addAttribute("market", new Market());
+		return "createMarket";
+	}
+	
+	@RequestMapping(value="/addMarket", method = RequestMethod.POST)
+	public String addMarket2(ModelMap model) {
+		Collection<Object> values = model.values();
+		Market market = (Market) model.values();
+		MarketServiceELImpl.save(market);
+		model.addAttribute("markets", null);		
+		return "marketList";
+	}
+	
+	@RequestMapping(value="{/addMarket",method=RequestMethod.POST)	
+	public String addMarket(@ModelAttribute("market")Market market, BindingResult result, 
+			Model model)
+	{
+		 // if (!bindingResult.hasErrors()) {
+		MarketServiceELImpl.save(market);
+		model.addAttribute("markets", null);		
 		return "marketList";
 	}
 	
@@ -50,44 +70,5 @@ public class MarketController {
 		webFrameworkList.add("Apache Wicket");
 		return webFrameworkList;
 	}
-	
-/*	public String addMarket(ModelMap model) {
-		
-		model.addAttribute("market", new Market());
-		return "addMarket";
-	} */
-	
-	@RequestMapping(value="/addMarket2", method = RequestMethod.GET)
-	public String addMarket2(ModelMap model) {
-		Collection<Object> values = model.values();
-		return "marketList";
-	}
-	
-	@RequestMapping(value="{/addMarket",method=RequestMethod.POST)	
-	public String addMarket(@ModelAttribute("market")Market market, BindingResult result, 
-			Model model)
-	{
-		 // if (!bindingResult.hasErrors()) {
-			  MarketServiceELImpl.delete(market);
-		//    LOGGER.debug("Received request for command : {removeContact(contact)}");
-		    return "redirect:/contacts";
-		//  }
-	//	  return "contacts/delete";
-		}
-	
-	/* @RequestMapping(value="{identifier}/edit",method=RequestMethod.POST) public String formEditSubmit(@ModelAttribute("contact") @Valid Contact contact,BindingResult bindingResult){
-  LOGGER.debug("Received form submit for contact with identifier {}",contact.getIdentifier());
-  if (bindingResult.hasErrors()) {
-    return "contacts/edit";
-  }
-  contactRepository.save(contact);
-  LOGGER.debug("Received request for command : {editContact(contact)}");
-  return "redirect:/contacts/" + contact.getIdentifier();
- */
-	
-	
 }
-		
-//asadmin list-jndi-entries --context jdbc  
-//https://computingat40s.wordpress.com/how-to-setup-a-jdbc-connection-in-glassfish/
-//Persistence
+	

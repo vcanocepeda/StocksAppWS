@@ -27,26 +27,17 @@ public class JpaConfig {
   
   @Bean
   public DataSource DataSource()  {
-	//  InitialContext ic = null;
-	  DataSource ds = null;
+	DataSource ds = null;
 	try {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
 		ds = (DataSource)envCtx.lookup("jdbc/MysqlDS");
 	} catch (NamingException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
-	  
-      return ds;
+	}	  
+    return ds;
   }
-  
-  /* Maybe we could delete it 
-  @Bean
-  public EclipseLinkJpaDialect eclipseLinkJpaDialect() {
-     return new EclipseLinkJpaDialect();
-  } */
-  
+   
   @Bean
   public EntityManagerFactory entityManagerFactory() {
 	  EclipseLinkJpaVendorAdapter vendorAdapter = new EclipseLinkJpaVendorAdapter();
@@ -56,12 +47,12 @@ public class JpaConfig {
       factory.setJpaVendorAdapter(vendorAdapter);
       Map<String, String> jpaProperties = new HashMap<String, String>();
       jpaProperties.put("eclipselink.weaving", "false");
-      jpaProperties.put("jpaDialect"," org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect");
+    //  jpaProperties.put("jpaDialect"," org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect");
       factory.setJpaPropertyMap(jpaProperties);
       
       factory.setPackagesToScan("com.isaacs.model");
       factory.setDataSource(DataSource());
-      factory.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
+    //  factory.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
       factory.setJpaDialect(new EclipseLinkJpaDialect());
       factory.afterPropertiesSet();
       return factory.getObject();

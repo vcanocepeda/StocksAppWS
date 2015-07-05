@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.isaacs")
-public class WebConfig extends WebMvcConfigurerAdapter{
+public class AppConfig extends WebMvcConfigurerAdapter{
 
   @Bean
   public InternalResourceViewResolver getInternalResourceViewResolver() {
@@ -28,18 +28,18 @@ public class WebConfig extends WebMvcConfigurerAdapter{
       configurer.enable("spring-mvc-dispatcher");
   } 
   
-  @Override
+/*  @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
      registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(31556926);
       registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
       registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
       registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926); 
-      //registry.addResourceHandler("/*.jsp").addResourceLocations("/WEB-INF/views/");
-  }
+      registry.addResourceHandler("/*.jsp").addResourceLocations("/WEB-INF/views/");
+  } 
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
       registry.addViewController("/").setViewName("forward:/index.jsp");
-  }
+  } */
   
 }
