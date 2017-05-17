@@ -10,7 +10,7 @@
 
 	<!-- Shared version number properties -->
 	<properties>
-		<org.springframework.version>4.1.4.RELEASE</org.springframework.version>
+		<org.springframework.version>4.3.8.RELEASE</org.springframework.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -117,9 +117,9 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
+    		<groupId>mysql</groupId>
+    		<artifactId>mysql-connector-java</artifactId>
+    		<version>5.1.42</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -144,7 +144,19 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-		</plugins>
+		    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <useProjectReferences>false</useProjectReferences>
+                    <wtpversion>2.0</wtpversion>
+                </configuration>
+            </plugin>
+        </plugins>
 		<finalName>StocksAppWS</finalName>
 	</build>
+      
+	
 </project>

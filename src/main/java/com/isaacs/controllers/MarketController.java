@@ -1,7 +1,6 @@
 package com.isaacs.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ public class MarketController {
 	@Autowired
 	private MarketService MarketServiceELImpl;
     
-
 	@RequestMapping(value="/listMarkets", method = RequestMethod.GET)
 	public String listMarkets(ModelMap model) {		
 		List<Market> list = MarketServiceELImpl.list();	 
@@ -32,27 +30,20 @@ public class MarketController {
 	
 	@RequestMapping(value="/createMarket", method = RequestMethod.GET)
 	public String createMarket(ModelMap model) {	
-		//Neither BindingResult nor plain target object for bean name 'market' available as request attribute
 		model.addAttribute("market", new Market());
 		return "createMarket";
 	}
-	
-	@RequestMapping(value="/addMarket", method = RequestMethod.POST)
-	public String addMarket2(ModelMap model) {
-		Collection<Object> values = model.values();
-		Market market = (Market) model.values();
-		MarketServiceELImpl.save(market);
-		model.addAttribute("markets", null);		
-		return "marketList";
-	}
-	
-	@RequestMapping(value="{/addMarket",method=RequestMethod.POST)	
-	public String addMarket(@ModelAttribute("market")Market market, BindingResult result, 
+
+	@RequestMapping(value="/addMarket",method=RequestMethod.POST)	
+	public String addMarket(@ModelAttribute("market")Market market, BindingResult bindingResult, 
 			Model model)
 	{
-		 // if (!bindingResult.hasErrors()) {
-		MarketServiceELImpl.save(market);
-		model.addAttribute("markets", null);		
+		if (bindingResult.hasErrors()) {
+			return "error";
+		} else {
+			MarketServiceELImpl.save(market);
+			model.addAttribute("markets", null);	
+		}
 		return "marketList";
 	}
 	

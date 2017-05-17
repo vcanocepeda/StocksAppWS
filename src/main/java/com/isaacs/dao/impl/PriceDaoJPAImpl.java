@@ -1,23 +1,18 @@
 package com.isaacs.dao.impl;
 
 import com.isaacs.dao.PriceDao;
-import com.isaacs.model.Market;
 import com.isaacs.model.Price;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
-
 import org.apache.log4j.Logger;
 
 public class PriceDaoJPAImpl implements Serializable, PriceDao{
 
 	private static final long serialVersionUID = -8471891881478662779L;
-	static Logger logger = Logger.getLogger(StockDaoJPAImpl.class);
+	static Logger logger = Logger.getLogger(PriceDaoJPAImpl.class);
 	private EntityManagerFactory emf;
 	private EntityManager em;
 

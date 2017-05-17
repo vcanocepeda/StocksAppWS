@@ -13,5 +13,8 @@
     	<input type="submit" value="List of Markets"/>
     	<h2>1. <a href="./helloworld.html">List of Markets2</a></h2>
     </form:form>
+    <form:form action="${pageContext.request.contextPath}/listStocks" method="get">
+    	<input type="submit" value="List of Stocks"/>
+    </form:form>
   </body>  
 </html>  

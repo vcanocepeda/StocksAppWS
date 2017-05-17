@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -47,6 +46,7 @@ public class JpaConfig {
       factory.setJpaVendorAdapter(vendorAdapter);
       Map<String, String> jpaProperties = new HashMap<String, String>();
       jpaProperties.put("eclipselink.weaving", "false");
+    // jpaProperties.put("useJDBCCompliantTimezoneShift", "true");
     //  jpaProperties.put("jpaDialect"," org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect");
       factory.setJpaPropertyMap(jpaProperties);
       

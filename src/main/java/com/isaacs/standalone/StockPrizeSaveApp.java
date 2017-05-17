@@ -1,11 +1,8 @@
 package com.isaacs.standalone;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 
 import com.isaacs.dao.*;
-import com.isaacs.configuration.*;
 import com.isaacs.webservices.impl.StocksWebServiceRestImpl;
 
 public class StockPrizeSaveApp {
@@ -14,11 +11,11 @@ public class StockPrizeSaveApp {
 	private MarketDao marketDao;
 
 	public StockPrizeSaveApp() {
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(
-				WebConfig.class);
+//		ApplicationContext ctx = new AnnotationConfigApplicationContext(
+//				WebConfig.class);
 
-		setStockDao(ctx.getBean(StockDao.class));
-		setMarketDao(ctx.getBean(MarketDao.class));
+//		setStockDao(ctx.getBean(StockDao.class));
+//		setMarketDao(ctx.getBean(MarketDao.class));
 
 		JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
 		sf.setResourceClasses(StocksWebServiceRestImpl.class);

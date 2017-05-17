@@ -1,19 +1,10 @@
 package com.isaacs.dao;
 
+import com.isaacs.model.Market;
 import com.isaacs.model.Stock;
-import java.util.List;
 
-public abstract interface StockDao
+public interface StockDao extends GenericDao<Stock, Integer>
 {
-  public abstract void save(Stock stock);
-  
-  public abstract void update(Stock stock, String code);
-  
-  public abstract void delete(Stock stock);
-  
-  public abstract Stock findByStockCode(String code);
-  
-  public abstract List<Stock> getStockList();
-  
-  public abstract void CloseEntityManager();
+	  Stock findByCode(String code); 
+	  Market getMarket(String code);
 }

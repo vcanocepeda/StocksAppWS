@@ -1,7 +1,6 @@
 package com.isaacs.standalone;
 
 import org.junit.Test;
-import org.junit.Assert;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -9,13 +8,12 @@ import junit.framework.TestSuite;
 import com.isaacs.dao.MarketDao;
 import com.isaacs.dao.impl.*;
 import com.isaacs.model.*;
-import com.isaacs.standalone.App;
 
 /**
  * Unit test for simple App.
  */
 public class AppTest extends TestCase {
-	private StockDaoJPAImpl stockDao;
+	private StockDaoELImpl stockDao;
 	private MarketDao marketDao;
 	private PriceDaoJPAImpl priceDao;
 
@@ -27,7 +25,7 @@ public class AppTest extends TestCase {
 	 */
 	public AppTest(String testName) {
 		super(testName);
-		stockDao = new StockDaoJPAImpl();
+		stockDao = new StockDaoELImpl();
 		marketDao = new MarketDaoELImpl();
 		priceDao = new PriceDaoJPAImpl();
 	}
@@ -51,19 +49,19 @@ public class AppTest extends TestCase {
 		stock.setMarket(market);
 		stockDao.save(stock);
 
-		assertEquals("REP", stockDao.findByStockCode("REP").getCode());
-		assertEquals("REPSOL", stockDao.findByStockCode("REP").getName());
+		assertEquals("REP", stockDao.findByCode("REP").getCode());
+		assertEquals("REPSOL", stockDao.findByCode("REP").getName());
 
 		stock.setCode("REP2");
 		stock.setName("REPSOL2");
-		stockDao.update(stock, "REP");
+		stockDao.update(stock);
 
-		assertEquals("REP2", stockDao.findByStockCode("REP2").getCode());
-		assertEquals("REPSOL2", stockDao.findByStockCode("REP2").getName());
+		assertEquals("REP2", stockDao.findByCode("REP2").getCode());
+		assertEquals("REPSOL2", stockDao.findByCode("REP2").getName());
 
 		stockDao.delete(stock);
 
-		assertNull(stockDao.findByStockCode("REP2"));
+		assertNull(stockDao.findByCode("REP2"));
 
 		stockDao.CloseEntityManager();
 
@@ -73,7 +71,7 @@ public class AppTest extends TestCase {
 	public void testPriceSave() {
 					
 		Stock stock = new Stock();
-		stock = stockDao.findByStockCode("GOOG");
+		stock = stockDao.findByCode("GOOG");
 			
 		Price price = new Price();
 		price.setValue(612.56);

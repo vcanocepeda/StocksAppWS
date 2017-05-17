@@ -36,6 +36,7 @@ public abstract class GenericDaoELImpl<E, K extends Serializable> implements Gen
 	
 	@Override
 	public String save(E entity) {
+		//In Website we throw Exceptions
 		String error = "";
 		try {
 			em.getTransaction().begin();
@@ -45,7 +46,6 @@ public abstract class GenericDaoELImpl<E, K extends Serializable> implements Gen
 				em.flush();
 			}
 			em.getTransaction().commit();		
-			// we have to write entity namelogger.info("EntityMarket saved: entity " + entity.getClass());
 			logger.info("Entity saved: entity " + entity.getClass());
 		} catch (Exception e) {
 			em.getTransaction().rollback();
@@ -82,7 +82,7 @@ public abstract class GenericDaoELImpl<E, K extends Serializable> implements Gen
 	public E find(K key) {
 		E entity = null;
 		try {
-			entity = (E) em.find(daoType, key);
+			entity = em.find(daoType, key);
 		} catch (NoResultException e) {
 
 		} 
@@ -91,13 +91,11 @@ public abstract class GenericDaoELImpl<E, K extends Serializable> implements Gen
 
 	@Override
 	public List<E> list() {
-		E entity = null;
 		List<E> listEntities = null;
 		try {
 			listEntities = em.createQuery("SELECT m FROM " + daoType.getSimpleName() + " m")
 					.getResultList();
-	//		listEntities = em.createQuery( "FROM " + daoType.getSimpleName() + " m", E)
-	//				.getResultList();
+
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();

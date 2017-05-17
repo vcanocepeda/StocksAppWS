@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"  
-    pageEncoding="ISO-8859-1"%>  
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+    pageEncoding="ISO-8859-1"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
 <html>  
  <head>  
@@ -12,23 +11,19 @@
  <body>  
   <h2>Create Market</h2>     
   
-  <sf:form method="POST" modelAttribute="market" cssClass="personForm" 
+  <form:form method="POST" modelAttribute="market" cssClass="personForm" 
   action="${pageContext.request.contextPath}/addMarket">
 	<table>   
-	   <tr>  
-           <td><sf:label path="id">Market ID:</sf:label></td>  
-           <td><sf:input path="id" /></td>  
+       <tr>  
+           <td><form:label path="code">Market Code:</form:label></td>  
+           <td><form:input path="code"/></td>  
        </tr>  
        <tr>  
-           <td><sf:label path="code">Market Code:</sf:label></td>  
-           <td><sf:input path="code"/></td>  
-       </tr>  
-       <tr>  
-           <td><sf:label path="city">Market City:</sf:label></td>  
-           <td><sf:input path="city"/></td>      
-            
+           <td><form:label path="city">Market City:</form:label></td>  
+           <td><form:input path="city"/></td>      
+       </tr>    
         <tr><td></td><td><input type="submit" value="Add" /></td></tr>
       </table>
-  </sf:form>
+  </form:form>
  </body>
 </html>
