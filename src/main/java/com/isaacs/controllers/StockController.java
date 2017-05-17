@@ -44,7 +44,7 @@ public class StockController {
 		marketList.forEach(market -> marketMap.put(market.getId(), market.getCode()));
 		
 	//	model.addAttribute("markets", marketMap);
-		//model.addAttribute("markets", marketList);
+		model.addAttribute("markets", marketList);
 		model.addAttribute("stock", new StockForm());
 		return new ModelAndView("createStock", model);
 	}
