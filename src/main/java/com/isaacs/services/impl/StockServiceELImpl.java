@@ -1,50 +1,30 @@
 package com.isaacs.services.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.isaacs.dao.GenericDao;
 import com.isaacs.dao.StockDao;
 import com.isaacs.model.Market;
 import com.isaacs.model.Stock;
 import com.isaacs.services.StockService;
 
 @Service("StockServiceELImpl")
-public class StockServiceELImpl implements StockService
+public class StockServiceELImpl extends GenericServiceImpl<Stock, Integer> implements StockService
 {
 	@Autowired
 	private StockDao StockDaoELImpl;
-
-	@Override
-	public String save(Stock stock) {
-		String result = StockDaoELImpl.save(stock);
-		return result;
-	}
-
-	@Override
-	public String update(Stock stock) {
-		String result = StockDaoELImpl.update(stock);
-		return result;
-	}
-
-	@Override
-	public String delete(Stock stock) {
-		String result = StockDaoELImpl.delete(stock);
-		return result;
-	}
-
-	@Override
-	public Stock find(Integer id) {
-		Stock stock = StockDaoELImpl.find(id);
-		return stock;
-	}
-
-	@Override
-	public List<Stock> list() {
-		List<Stock> list = StockDaoELImpl.list();
-		return list;
-	}
+	
+    public StockServiceELImpl(){
+    	 
+    }
+    @Autowired
+    public StockServiceELImpl(
+            @Qualifier("StockDaoELImpl") GenericDao<Stock, Integer> genericDao) {
+        super(genericDao);
+       // this.StockDaoELImpl = (StockDao) genericDao;
+    } 
 
 	@Override
 	public Stock findByCode(String code) {

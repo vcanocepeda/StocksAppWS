@@ -1,3 +1,13 @@
+JNDI Context for Tomcat
+
+<Resource name="jdbc/MysqlDS" auth="Container" type="javax.sql.DataSource"
+               maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="root" password="pele070680" 
+               driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/stocks"/>
+
+
+
+
 Add MongoDB too extending from MongoRepository Spring Data class
 
 

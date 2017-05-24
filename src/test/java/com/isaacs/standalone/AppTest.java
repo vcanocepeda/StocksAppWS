@@ -15,7 +15,7 @@ import com.isaacs.model.*;
 public class AppTest extends TestCase {
 	private StockDaoELImpl stockDao;
 	private MarketDao marketDao;
-	private PriceDaoJPAImpl priceDao;
+	private PriceDaoELImpl priceDao;
 
 	/**
 	 * Create the test case
@@ -27,7 +27,7 @@ public class AppTest extends TestCase {
 		super(testName);
 		stockDao = new StockDaoELImpl();
 		marketDao = new MarketDaoELImpl();
-		priceDao = new PriceDaoJPAImpl();
+		priceDao = new PriceDaoELImpl();
 	}
 
 	/**

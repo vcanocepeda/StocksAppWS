@@ -1,17 +1,11 @@
 package com.isaacs.dao;
 
 import com.isaacs.model.Price;
+import com.isaacs.model.Stock;
 
-public abstract interface PriceDao {
-	public abstract void save(Price price);
-
-//	public abstract void update(Stock stock, String code);
-
-	public abstract void delete(Price price);
-
-	public abstract Price findByPriceId(Integer id);
-
-//	public abstract List<Stock> getStockList();
-	
-	public abstract void CloseEntityManager();
+public interface PriceDao extends GenericDao<Price, Integer>
+{
+	  Price findByPriceId(Integer id); 
+	  Stock getStock(Integer id);
 }
+

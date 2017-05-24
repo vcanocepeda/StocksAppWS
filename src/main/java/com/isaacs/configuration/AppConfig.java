@@ -3,6 +3,7 @@ package com.isaacs.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -33,6 +34,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
       registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
       registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926); 
       registry.addResourceHandler("/*.jsp").addResourceLocations("/WEB-INF/views/");
+      registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
   } 
 
   @Override
